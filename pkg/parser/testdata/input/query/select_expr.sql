@@ -20,6 +20,7 @@ select 1 + 2, 1 - 2,
        when 2 then "2"
        else        "other"
        end,
+       IF(1 < 2, 'true', 'false') AS result,
        date_add(date "2019-09-01", interval 5 day),
        timestamp_add(timestamp "2019-09-01 08:11:22", interval 5 hour),
        1 in (1, 2, 3),

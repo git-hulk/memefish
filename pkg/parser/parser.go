@@ -1393,6 +1393,8 @@ func (p *Parser) parseLit() ast.Expr {
 		return p.parseParam()
 	case "CASE":
 		return p.parseCaseExpr()
+	case "IF":
+		return p.parseIFExpr()
 	case "CAST":
 		return p.parseCastExpr()
 	case "EXISTS":
