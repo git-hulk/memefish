@@ -349,6 +349,9 @@ func (c *CaseWhen) End() token.Pos { return c.Then.End() }
 func (c *CaseElse) Pos() token.Pos { return c.Else }
 func (c *CaseElse) End() token.Pos { return c.Expr.End() }
 
+func (i *IfExpr) Pos() token.Pos { return i.If }
+func (i *IfExpr) End() token.Pos { return i.EndPos }
+
 func (p *ParenExpr) Pos() token.Pos { return p.Lparen }
 func (p *ParenExpr) End() token.Pos { return p.Rparen + 1 }
 

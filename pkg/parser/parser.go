@@ -948,7 +948,27 @@ func (p *Parser) parseTableSampleSize() *ast.TableSampleSize {
 // ================================================================================
 
 func (p *Parser) parseExpr() ast.Expr {
+	if p.Token.Kind == "IF" {
+		return p.parseIFExpr()
+	}
 	return p.parseOr()
+}
+
+func (p *Parser) parseIFExpr() ast.Expr {
+	p.nextToken()
+	p.expect("(")
+	expr := p.parseExpr()
+	p.expect(",")
+	trueResult := p.parseExpr()
+	p.expect(",")
+	falseResult := p.parseExpr()
+	p.expect(")")
+	return &ast.IfExpr{
+		Expr:        expr,
+		EndPos:      p.Token.Pos,
+		TrueResult:  trueResult,
+		FalseResult: falseResult,
+	}
 }
 
 func (p *Parser) parseOr() ast.Expr {

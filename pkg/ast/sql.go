@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"strings"
+
 	"github.com/MakeNowJust/memefish/pkg/token"
 )
 
@@ -527,6 +529,14 @@ func (c *CaseWhen) SQL() string {
 
 func (c *CaseElse) SQL() string {
 	return "ELSE " + c.Expr.SQL()
+}
+
+func (i *IfExpr) SQL() string {
+	return "IF(" + strings.Join([]string{
+		i.Expr.SQL(),
+		i.TrueResult.SQL(),
+		i.FalseResult.SQL(),
+	}, ",") + ")"
 }
 
 func (p *ParenExpr) SQL() string {
