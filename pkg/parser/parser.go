@@ -948,13 +948,13 @@ func (p *Parser) parseTableSampleSize() *ast.TableSampleSize {
 // ================================================================================
 
 func (p *Parser) parseExpr() ast.Expr {
-	if p.Token.Kind == "IF" {
-		return p.parseIFExpr()
+	if p.Token.IsKeywordLike("IF") {
+		return p.parseLit()
 	}
 	return p.parseOr()
 }
 
-func (p *Parser) parseIFExpr() ast.Expr {
+func (p *Parser) parseIfExpr() ast.Expr {
 	p.nextToken()
 	p.expect("(")
 	expr := p.parseExpr()
@@ -1394,7 +1394,7 @@ func (p *Parser) parseLit() ast.Expr {
 	case "CASE":
 		return p.parseCaseExpr()
 	case "IF":
-		return p.parseIFExpr()
+		return p.parseIfExpr()
 	case "CAST":
 		return p.parseCastExpr()
 	case "EXISTS":
