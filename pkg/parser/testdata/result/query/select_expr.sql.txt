@@ -21,7 +21,7 @@ select 1 + 2, 1 - 2,
        when 2 then "2"
        else        "other"
        end,
-       IF(1 < 2, 'true', 'false') AS result,
+       IF(1 < 2, 2, 1)+1,
        date_add(date "2019-09-01", interval 5 day),
        timestamp_add(timestamp "2019-09-01 08:11:22", interval 5 hour),
        1 in (1, 2, 3),
@@ -582,51 +582,54 @@ select 1 + 2, 1 - 2,
           },
         },
       },
-      &ast.Alias{
-        Expr: &ast.IfExpr{
-          If:     0,
-          EndPos: 541,
-          Expr:   &ast.BinaryExpr{
-            Op:   "<",
-            Left: &ast.IntLiteral{
-              ValuePos: 517,
-              ValueEnd: 518,
-              Base:     10,
-              Value:    "1",
+      &ast.ExprSelectItem{
+        Expr: &ast.BinaryExpr{
+          Op:   "+",
+          Left: &ast.IfExpr{
+            If:     0,
+            EndPos: 529,
+            Expr:   &ast.BinaryExpr{
+              Op:   "<",
+              Left: &ast.IntLiteral{
+                ValuePos: 517,
+                ValueEnd: 518,
+                Base:     10,
+                Value:    "1",
+              },
+              Right: &ast.IntLiteral{
+                ValuePos: 521,
+                ValueEnd: 522,
+                Base:     10,
+                Value:    "2",
+              },
             },
-            Right: &ast.IntLiteral{
-              ValuePos: 521,
-              ValueEnd: 522,
+            TrueResult: &ast.IntLiteral{
+              ValuePos: 524,
+              ValueEnd: 525,
               Base:     10,
               Value:    "2",
             },
+            FalseResult: &ast.IntLiteral{
+              ValuePos: 527,
+              ValueEnd: 528,
+              Base:     10,
+              Value:    "1",
+            },
           },
-          TrueResult: &ast.StringLiteral{
-            ValuePos: 524,
-            ValueEnd: 530,
-            Value:    "true",
-          },
-          FalseResult: &ast.StringLiteral{
-            ValuePos: 532,
-            ValueEnd: 539,
-            Value:    "false",
-          },
-        },
-        As: &ast.AsAlias{
-          As:    -1,
-          Alias: &ast.Ident{
-            NamePos: 544,
-            NameEnd: 550,
-            Name:    "result",
+          Right: &ast.IntLiteral{
+            ValuePos: 530,
+            ValueEnd: 531,
+            Base:     10,
+            Value:    "1",
           },
         },
       },
       &ast.ExprSelectItem{
         Expr: &ast.CallExpr{
-          Rparen: 601,
+          Rparen: 582,
           Func:   &ast.Ident{
-            NamePos: 559,
-            NameEnd: 567,
+            NamePos: 540,
+            NameEnd: 548,
             Name:    "date_add",
           },
           Distinct: false,
@@ -634,26 +637,26 @@ select 1 + 2, 1 - 2,
             &ast.Arg{
               Interval: -1,
               Expr:     &ast.DateLiteral{
-                Date:  568,
+                Date:  549,
                 Value: &ast.StringLiteral{
-                  ValuePos: 573,
-                  ValueEnd: 585,
+                  ValuePos: 554,
+                  ValueEnd: 566,
                   Value:    "2019-09-01",
                 },
               },
               IntervalUnit: (*ast.Ident)(nil),
             },
             &ast.Arg{
-              Interval: 587,
+              Interval: 568,
               Expr:     &ast.IntLiteral{
-                ValuePos: 596,
-                ValueEnd: 597,
+                ValuePos: 577,
+                ValueEnd: 578,
                 Base:     10,
                 Value:    "5",
               },
               IntervalUnit: &ast.Ident{
-                NamePos: 598,
-                NameEnd: 601,
+                NamePos: 579,
+                NameEnd: 582,
                 Name:    "day",
               },
             },
@@ -662,10 +665,10 @@ select 1 + 2, 1 - 2,
       },
       &ast.ExprSelectItem{
         Expr: &ast.CallExpr{
-          Rparen: 673,
+          Rparen: 654,
           Func:   &ast.Ident{
-            NamePos: 611,
-            NameEnd: 624,
+            NamePos: 592,
+            NameEnd: 605,
             Name:    "timestamp_add",
           },
           Distinct: false,
@@ -673,26 +676,26 @@ select 1 + 2, 1 - 2,
             &ast.Arg{
               Interval: -1,
               Expr:     &ast.TimestampLiteral{
-                Timestamp: 625,
+                Timestamp: 606,
                 Value:     &ast.StringLiteral{
-                  ValuePos: 635,
-                  ValueEnd: 656,
+                  ValuePos: 616,
+                  ValueEnd: 637,
                   Value:    "2019-09-01 08:11:22",
                 },
               },
               IntervalUnit: (*ast.Ident)(nil),
             },
             &ast.Arg{
-              Interval: 658,
+              Interval: 639,
               Expr:     &ast.IntLiteral{
-                ValuePos: 667,
-                ValueEnd: 668,
+                ValuePos: 648,
+                ValueEnd: 649,
                 Base:     10,
                 Value:    "5",
               },
               IntervalUnit: &ast.Ident{
-                NamePos: 669,
-                NameEnd: 673,
+                NamePos: 650,
+                NameEnd: 654,
                 Name:    "hour",
               },
             },
@@ -703,30 +706,30 @@ select 1 + 2, 1 - 2,
         Expr: &ast.InExpr{
           Not:  false,
           Left: &ast.IntLiteral{
-            ValuePos: 683,
-            ValueEnd: 684,
+            ValuePos: 664,
+            ValueEnd: 665,
             Base:     10,
             Value:    "1",
           },
           Right: &ast.ValuesInCondition{
-            Lparen: 688,
-            Rparen: 696,
+            Lparen: 669,
+            Rparen: 677,
             Exprs:  []ast.Expr{
               &ast.IntLiteral{
-                ValuePos: 689,
-                ValueEnd: 690,
+                ValuePos: 670,
+                ValueEnd: 671,
                 Base:     10,
                 Value:    "1",
               },
               &ast.IntLiteral{
-                ValuePos: 692,
-                ValueEnd: 693,
+                ValuePos: 673,
+                ValueEnd: 674,
                 Base:     10,
                 Value:    "2",
               },
               &ast.IntLiteral{
-                ValuePos: 695,
-                ValueEnd: 696,
+                ValuePos: 676,
+                ValueEnd: 677,
                 Base:     10,
                 Value:    "3",
               },
@@ -738,35 +741,35 @@ select 1 + 2, 1 - 2,
         Expr: &ast.InExpr{
           Not:  false,
           Left: &ast.IntLiteral{
-            ValuePos: 706,
-            ValueEnd: 707,
+            ValuePos: 687,
+            ValueEnd: 688,
             Base:     10,
             Value:    "2",
           },
           Right: &ast.UnnestInCondition{
-            Unnest: 711,
-            Rparen: 727,
+            Unnest: 692,
+            Rparen: 708,
             Expr:   &ast.ArrayLiteral{
               Array:  0,
-              Lbrack: 718,
-              Rbrack: 726,
+              Lbrack: 699,
+              Rbrack: 707,
               Type:   nil,
               Values: []ast.Expr{
                 &ast.IntLiteral{
-                  ValuePos: 719,
-                  ValueEnd: 720,
+                  ValuePos: 700,
+                  ValueEnd: 701,
                   Base:     10,
                   Value:    "1",
                 },
                 &ast.IntLiteral{
-                  ValuePos: 722,
-                  ValueEnd: 723,
+                  ValuePos: 703,
+                  ValueEnd: 704,
                   Base:     10,
                   Value:    "2",
                 },
                 &ast.IntLiteral{
-                  ValuePos: 725,
-                  ValueEnd: 726,
+                  ValuePos: 706,
+                  ValueEnd: 707,
                   Base:     10,
                   Value:    "3",
                 },
@@ -779,18 +782,39 @@ select 1 + 2, 1 - 2,
         Expr: &ast.InExpr{
           Not:  false,
           Left: &ast.IntLiteral{
-            ValuePos: 737,
-            ValueEnd: 738,
+            ValuePos: 718,
+            ValueEnd: 719,
             Base:     10,
             Value:    "3",
           },
           Right: &ast.SubQueryInCondition{
-            Lparen: 742,
-            Rparen: 789,
+            Lparen: 723,
+            Rparen: 770,
             Query:  &ast.CompoundQuery{
               Op:       "UNION",
               Distinct: false,
               Queries:  []ast.QueryExpr{
+                &ast.Select{
+                  Select:   724,
+                  Distinct: false,
+                  AsStruct: false,
+                  Results:  []ast.SelectItem{
+                    &ast.ExprSelectItem{
+                      Expr: &ast.IntLiteral{
+                        ValuePos: 731,
+                        ValueEnd: 732,
+                        Base:     10,
+                        Value:    "1",
+                      },
+                    },
+                  },
+                  From:    (*ast.From)(nil),
+                  Where:   (*ast.Where)(nil),
+                  GroupBy: (*ast.GroupBy)(nil),
+                  Having:  (*ast.Having)(nil),
+                  OrderBy: (*ast.OrderBy)(nil),
+                  Limit:   (*ast.Limit)(nil),
+                },
                 &ast.Select{
                   Select:   743,
                   Distinct: false,
@@ -801,7 +825,7 @@ select 1 + 2, 1 - 2,
                         ValuePos: 750,
                         ValueEnd: 751,
                         Base:     10,
-                        Value:    "1",
+                        Value:    "2",
                       },
                     },
                   },
@@ -821,27 +845,6 @@ select 1 + 2, 1 - 2,
                       Expr: &ast.IntLiteral{
                         ValuePos: 769,
                         ValueEnd: 770,
-                        Base:     10,
-                        Value:    "2",
-                      },
-                    },
-                  },
-                  From:    (*ast.From)(nil),
-                  Where:   (*ast.Where)(nil),
-                  GroupBy: (*ast.GroupBy)(nil),
-                  Having:  (*ast.Having)(nil),
-                  OrderBy: (*ast.OrderBy)(nil),
-                  Limit:   (*ast.Limit)(nil),
-                },
-                &ast.Select{
-                  Select:   781,
-                  Distinct: false,
-                  AsStruct: false,
-                  Results:  []ast.SelectItem{
-                    &ast.ExprSelectItem{
-                      Expr: &ast.IntLiteral{
-                        ValuePos: 788,
-                        ValueEnd: 789,
                         Base:     10,
                         Value:    "3",
                       },
@@ -866,13 +869,13 @@ select 1 + 2, 1 - 2,
           Op:   "||",
           Left: &ast.ArrayLiteral{
             Array:  0,
-            Lbrack: 799,
-            Rbrack: 801,
+            Lbrack: 780,
+            Rbrack: 782,
             Type:   nil,
             Values: []ast.Expr{
               &ast.IntLiteral{
-                ValuePos: 800,
-                ValueEnd: 801,
+                ValuePos: 781,
+                ValueEnd: 782,
                 Base:     10,
                 Value:    "1",
               },
@@ -880,13 +883,13 @@ select 1 + 2, 1 - 2,
           },
           Right: &ast.ArrayLiteral{
             Array:  0,
-            Lbrack: 806,
-            Rbrack: 808,
+            Lbrack: 787,
+            Rbrack: 789,
             Type:   nil,
             Values: []ast.Expr{
               &ast.IntLiteral{
-                ValuePos: 807,
-                ValueEnd: 808,
+                ValuePos: 788,
+                ValueEnd: 789,
                 Base:     10,
                 Value:    "2",
               },
@@ -905,4 +908,4 @@ select 1 + 2, 1 - 2,
 }
 
 --- SQL
-SELECT 1 + 2, 1 - 2, 1 * 2, 2 / 2, +1 + +1, -1 + -1, +1.2, -3.4, ~1 ^ ~1, 1 ^ 2, 2 & 1, 2 | 1, 1 << 2, 2 >> 1, foo.bar * +foo.bar * -foo.bar, (SELECT 1 AS `1`).`1`, NOT NOT TRUE, ARRAY[1, 2, 3][OFFSET(1)], ARRAY[1, 2, 3][OFFSET(1)], ARRAY[1, 2, 3][ORDINAL(1)], CASE WHEN 1 = 1 THEN "1 = 1" ELSE "else" END, CASE 1 WHEN 1 THEN "1" WHEN 2 THEN "2" ELSE "other" END, IF(1 < 2,"true","false") AS result, date_add(DATE "2019-09-01", INTERVAL 5 day), timestamp_add(TIMESTAMP "2019-09-01 08:11:22", INTERVAL 5 hour), 1 IN (1, 2, 3), 2 IN UNNEST(ARRAY[1, 2, 3]), 3 IN (SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3), ARRAY[1] || ARRAY[2]
+SELECT 1 + 2, 1 - 2, 1 * 2, 2 / 2, +1 + +1, -1 + -1, +1.2, -3.4, ~1 ^ ~1, 1 ^ 2, 2 & 1, 2 | 1, 1 << 2, 2 >> 1, foo.bar * +foo.bar * -foo.bar, (SELECT 1 AS `1`).`1`, NOT NOT TRUE, ARRAY[1, 2, 3][OFFSET(1)], ARRAY[1, 2, 3][OFFSET(1)], ARRAY[1, 2, 3][ORDINAL(1)], CASE WHEN 1 = 1 THEN "1 = 1" ELSE "else" END, CASE 1 WHEN 1 THEN "1" WHEN 2 THEN "2" ELSE "other" END, IF(1 < 2,2,1) + 1, date_add(DATE "2019-09-01", INTERVAL 5 day), timestamp_add(TIMESTAMP "2019-09-01 08:11:22", INTERVAL 5 hour), 1 IN (1, 2, 3), 2 IN UNNEST(ARRAY[1, 2, 3]), 3 IN (SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3), ARRAY[1] || ARRAY[2]
